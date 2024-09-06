@@ -17,7 +17,10 @@ public class cinemachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      Camera.transform.position = Ball.transform.position + offset;
+        if (Camera != null && Ball != null)
+        {
+            Camera.transform.position = Ball.transform.position + offset;
+        }
     }
    
 }
