@@ -6,25 +6,33 @@ public class MovingAudio : MonoBehaviour
 {
     // Start is called before the first frame update
 
-
+    GameObject Ball;
     private AudioSource audioSource;
+    private AudioSource audioSource2;
+    private Rigidbody2D ballRigidbody;
 
     void Start()
     {
-        // Load the audio clip from the Resources folder
+        Ball = FindFirstObjectByType<GameObject>();
+        ballRigidbody = Ball.GetComponent<Rigidbody2D>();
+
         AudioClip audioClip = Resources.Load<AudioClip>("Audio/StoneSlide");
+        AudioClip audioClip2 = Resources.Load<AudioClip>("Audio/Ding");
 
         if (audioClip != null)
         {
-            // Create a new GameObject to hold the AudioSource
+
             GameObject audioObject = new GameObject("AudioSource");
             audioSource = audioObject.AddComponent<AudioSource>();
+            audioSource2 = audioObject.AddComponent<AudioSource>();
 
-            // Assign the AudioClip to the AudioSource
+
             audioSource.clip = audioClip;
+            audioSource2.clip = audioClip2;
 
-            // Enable looping
+
             audioSource.loop = true;
+            audioSource2.loop = true;
         }
         else
         {
@@ -32,28 +40,40 @@ public class MovingAudio : MonoBehaviour
         }
     }
 
+
     void Update()
     {
+        if (ballRigidbody != null && ballRigidbody.velocity.magnitude < 0.1f)
+        {
+
+            audioSource2.Play();
+
+
+
+
+        }
+
+
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            // Play the audio if it's not already playing
+
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
 
             }
         }
-        // Check if the W or S keys are pressed
+
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
         {
-            // Play the audio if it's not already playing
+
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
             }
         }
 
-        // Optionally, stop the audio when the W or S keys are released
+
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
         {
 
