@@ -14,24 +14,20 @@ public class CameraShake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.T))
-        { 
-            ShakeCamera(1);
-        }
+        ShakeCamera(1);
     }
 
-    void ShakeCamera(float duration)
+    public void ShakeCamera(float duration)
     {
         print("in camshake");
         float sensitivity = 0.5f;
         Vector3 cameraOriginalPosition = cam.transform.position;
         cam.transform.position = cameraOriginalPosition;
         Vector3 cameraNewPosition;
-
         duration -= Time.deltaTime;
         if (duration >= 0)
         {
-            cameraNewPosition = cameraOriginalPosition + new Vector3(Random.Range(-sensitivity, sensitivity), Random.Range(-sensitivity, sensitivity),0);
+            cameraNewPosition = cameraOriginalPosition + new Vector3(Random.Range(-sensitivity, sensitivity), Random.Range(-sensitivity, sensitivity), 0);
             cam.transform.position = cameraNewPosition;
         }
     }
