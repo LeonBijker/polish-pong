@@ -15,7 +15,7 @@ public class CameraShake : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(KeyCode.T))
-        {
+        { 
             ShakeCamera(1);
         }
     }
@@ -23,12 +23,15 @@ public class CameraShake : MonoBehaviour
     void ShakeCamera(float duration)
     {
         print("in camshake");
+        float sensitivity = 0.5f;
         Vector3 cameraOriginalPosition = cam.transform.position;
+        cam.transform.position = cameraOriginalPosition;
         Vector3 cameraNewPosition;
+
         duration -= Time.deltaTime;
         if (duration >= 0)
         {
-            cameraNewPosition = cameraOriginalPosition + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
+            cameraNewPosition = cameraOriginalPosition + new Vector3(Random.Range(-sensitivity, sensitivity), Random.Range(-sensitivity, sensitivity),0);
             cam.transform.position = cameraNewPosition;
         }
     }
