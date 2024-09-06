@@ -14,7 +14,7 @@ public class CameraShake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ShakeCamera(1);
+
     }
 
     public void ShakeCamera(float duration)
@@ -24,11 +24,29 @@ public class CameraShake : MonoBehaviour
         Vector3 cameraOriginalPosition = cam.transform.position;
         cam.transform.position = cameraOriginalPosition;
         Vector3 cameraNewPosition;
-        duration -= Time.deltaTime;
-        if (duration >= 0)
+        StartCoroutine(shakingCam(duration));
+    }
+
+        IEnumerator shakingCam(float duration)
         {
-            cameraNewPosition = cameraOriginalPosition + new Vector3(Random.Range(-sensitivity, sensitivity), Random.Range(-sensitivity, sensitivity), 0);
-            cam.transform.position = cameraNewPosition;
+        float sensitivity = 0.5f;
+        Vector3 cameraOriginalPosition = cam.transform.position;
+        cam.transform.position = cameraOriginalPosition;
+        Vector3 cameraNewPosition;
+
+        print("incoroutine");
+            for (int i = 0; i < duration; i++)
+            {
+                cameraNewPosition = cameraOriginalPosition + new Vector3(Random.Range(-sensitivity, sensitivity), Random.Range(-sensitivity, sensitivity), 0);
+                cam.transform.position = cameraNewPosition;
+                yield return new WaitForSeconds(.02f);
+            }
+            cam.transform.position = cameraOriginalPosition;
         }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        print("oncollission");
+        ShakeCamera(20f);
     }
 }
