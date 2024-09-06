@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class MapColorChanger : MonoBehaviour
 {
-    SpriteRenderer[] wallRenderers = FindObjectsOfType<SpriteRenderer>();
+    SpriteRenderer[] wallRenderers;
     private Camera cam;
     void Start()
     {
+        wallRenderers = FindObjectsOfType<SpriteRenderer>();
         cam = FindFirstObjectByType<Camera>();
     }
-    
-    private void OnCollisionEnter2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         int randNumber = Random.Range(1, 5);
         if (randNumber == 1)
